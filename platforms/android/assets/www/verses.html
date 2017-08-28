@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' heavenly-ladder-ministries.appspot.com https://www.gstatic.com/ https://heavenly-ladder-ministries.firebaseio.com https://*.firebaseio.com wss://*.firebaseio.com https://www.youtube.com data: gap: https://ssl.gstatic.com  'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src  *; img-src 'self' https://firebasestorage.googleapis.com data: content:;">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="msapplication-tap-highlight" content="no">
+  <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+  <title>HLM</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  
+  <!-- CSS  -->
+  <link href="fonts/googlefonts.css" rel="stylesheet">
+  <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <!-- Plugins CSS -->    
+  <link rel="stylesheet" href="fa/css/font-awesome.css">
+  <script src="js/jQuery_3_1_1.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/materialize.min.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.3.0/firebase.js"></script>
+
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyAfcQbzZ11_Fk2GAUXvlsexad2XbFAb9os",
+      authDomain: "heavenly-ladder-ministries.firebaseapp.com",
+      databaseURL: "https://heavenly-ladder-ministries.firebaseio.com",
+      projectId: "heavenly-ladder-ministries",
+      storageBucket: "heavenly-ladder-ministries.appspot.com",
+      messagingSenderId: "952491993177"
+    };
+    firebase.initializeApp(config);
+    var database = firebase.database();
+    function writeUserData(userId, name, email, imageUrl) {
+      firebase.database().ref('users/' + userId).set({
+        username: name,
+        email: email,
+        profile_picture : imageUrl
+      });
+    }
+    function addCard(imageUrl, content, cardTitle, YouTubeEmbed, date){
+      if(cardTitle == undefined)
+        cardTitle = "Verse of the Day"
+      if(date == undefined)
+        date = " "
+      var card = '<li>';
+      var cardHeadDiv = '<div class="collapsible-header"><span class="badge">' + date + "</span>"
+       + cardTitle +'</div>';
+      var cardContent = '<div class="collapsible-body">' + '<br/>'  + content + '</div>';
+      card = card + cardHeadDiv + cardContent +  '</li>';
+      $( ".main_container ul" ).prepend(card);
+    }
+  </script>
+
+  <script type="text/javascript">
+    jQuery(document).ready(function(){
+      $(".button-collapse").sideNav();
+      $('.carousel').carousel({full_width: true, indicators: true});
+      var messages;
+      firebase.database().ref('/verses/').once('value').then(function(snapshot) {
+       messages = (snapshot.val());
+       for (var message_obj in messages) {
+          addCard(messages[message_obj].imageUrl, messages[message_obj].content, messages[message_obj].cardTitle, messages[message_obj].youtubeEmbed, messages[message_obj].date)
+        }
+      });
+
+    });
+  </script>
+</head>
+<body>
+  <header>
+    <nav class="blue lighten-2">
+      <div class="nav-wrapper">
+        <a href="#" class="brand-logo">HLM</a>
+        <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="youtube.html">YouTube</a></li><li><a href="youtube_card.html">YouTube Card View</a></li>
+          <li><a href="verses.html">Verses</a></li>
+        </ul>
+        <ul class="side-nav" id="mobile-demo">
+          <li>
+            <div class="userView">
+              <div class="background">
+                <img src="images/office.png">
+              </div>
+              <a href="#!user"><img class="circle" src="images/photo.png"></a>
+              <a href="#!name"><span class="white-text name">Heavenly Ladder Ministries</span></a>
+              <a href="#!email"><span class="white-text email">md.jegan@gmail.com</span></a>
+            </div>
+          </li>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="youtube.html">YouTube</a></li><li><a href="youtube_card.html">YouTube Card View</a></li>
+          <li><a href="verses.html">Verses</a></li>
+        </ul>
+      </div>
+    </nav>
+    
+  <!-- <div id="test1" class="col s12">Test 1</div>
+  <div id="test2" class="col s12">Test 2</div>
+  <div id="test3" class="col s12">Test 3</div>
+  <div id="test4" class="col s12">Test 4</div> -->
+  </header>
+
+<div id="main_content" class="">
+  <div class="container">
+
+  </div>
+    <div class="row no-m-b">
+      <div class="main_container container white">
+        <ul class="collapsible" data-collapsible="accordion">
+          
+        </ul>
+      </div>
+
+
+    </div>
+</div>  
+
+    
+
+
+<footer class="page-footer blue lighten-2">
+  <div class="container ">
+    <div class="row">
+      <div class="col l6 s12">
+        <h5 class="white-text">Contact</h5>
+        <div class="details-contact white-text">
+          <div class="contact-details-item">
+            
+                <i class="fa fa-envelope media-object" aria-hidden="true"></i>
+            
+                <a class="white-text" href="mailto:md.jegan@gmail.com">md.jegan@gmail.com</a>
+            
+          </div>
+          <div class="contact-details-item">
+                <i class="fa fa-map-marker media-object" aria-hidden="true"></i>
+              Chennai,<br/> India 
+          </div>
+        </div>
+        <!-- <p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p> -->
+      </div>
+<!--       <div class="col l4 offset-l2 s12">
+        <h5 class="white-text">Research Projects</h5>
+        <ul>
+          <li><a class="grey-text text-lighten-3" href="#!">Link 1</a></li>
+          <li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>
+          <li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>
+          <li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li>
+        </ul>
+      </div>
+      <div class="col l4 offset-l2 s12">
+        <h5 class="white-text">Assistant</h5>
+        <div class="details-asst white-text">
+        <div class="contact-details-item">
+              <i class="fa fa-user media-object" aria-hidden="true"></i>
+              <a class="white-text" href="mailto:ksacco@cs.umass.edu">Karren Sacco</a>
+        </div>
+        <div class="contact-details-item">
+            <i class="fa fa-envelope media-object" aria-hidden="true"></i>
+            <a class="white-text" href="mailto:ksacco@cs.umass.edu">ksacco@cs.umass.edu</a>
+        </div>
+        <div class="contact-details-item">
+              <i class="fa fa-phone media-object" aria-hidden="true"></i>
+            <a class="white-text" href="tel:413 577 0292">(413) 577-0292</a>
+        </div>
+        </div>
+      </div> -->
+    </div>
+  </div>
+  <div class="footer-copyright">
+    <div class="container">
+    © 2017 Content Copyright HLM
+    <!-- <a class="grey-text text-lighten-4 right" href="#!">More Links</a> -->
+    </div>
+  </div>
+</footer>
+
+<!-- 
+<footer class="container-fluid text-center">
+  <p>Footer Text</p>
+</footer>
+ -->
+ <script type="text/javascript" src="js/index.js"></script>
+</body>
+</html>
+
