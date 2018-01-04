@@ -1,28 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' heavenly-ladder-ministries.appspot.com https://www.gstatic.com/ https://heavenly-ladder-ministries.firebaseio.com https://*.firebaseio.com wss://*.firebaseio.com data: gap: https://ssl.gstatic.com  'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src  *; img-src 'self' https://firebasestorage.googleapis.com data: content:;">
-  <meta name="format-detection" content="telephone=no">
-  <meta name="msapplication-tap-highlight" content="no">
-  <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
-  <title>HLM</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
-  
-  <!-- CSS  -->
-  <link href="fonts/googlefonts.css" rel="stylesheet">
-  <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-  <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-    <!-- Plugins CSS -->    
-  <link rel="stylesheet" href="fa/css/font-awesome.css">
-  <script src="js/jQuery_3_1_1.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/materialize.min.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/4.3.0/firebase.js"></script>
+<title>HLM</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="css/bootstrap.min.css" />
+<link rel="stylesheet" href="css/bootstrap-responsive.min.css" />
+<link rel="stylesheet" href="css/fullcalendar.css" />
+<link rel="stylesheet" href="css/matrix-style.css" />
+<link rel="stylesheet" href="css/matrix-media.css" />
+<link href="font-awesome/css/font-awesome.css" rel="stylesheet" />
+<link rel="stylesheet" href="css/jquery.gritter.css" />
+
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
+
+<script src="js/excanvas.min.js"></script> 
+<script src="js/jquery.min.js"></script> 
+<script src="js/jquery.ui.custom.js"></script> 
+<script src="js/bootstrap.min.js"></script> 
+<script src="js/jquery.flot.min.js"></script> 
+<script src="js/jquery.flot.resize.min.js"></script> 
+<script src="js/jquery.peity.min.js"></script> 
+<script src="js/fullcalendar.min.js"></script> 
+<script src="js/matrix.js"></script> 
+<!-- <script src="js/matrix.dashboard.js"></script>  -->
+<script src="js/jquery.gritter.min.js"></script> 
+<script src="js/matrix.interface.js"></script> 
+<script src="js/matrix.chat.js"></script> 
+<script src="js/jquery.validate.js"></script> 
+<script src="js/matrix.form_validation.js"></script> 
+<script src="js/jquery.wizard.js"></script> 
+<script src="js/jquery.uniform.js"></script> 
+<script src="js/select2.min.js"></script> 
+<script src="js/matrix.popover.js"></script> 
+<script src="js/jquery.dataTables.min.js"></script> 
+<script src="js/matrix.tables.js"></script> 
+
+<script src="https://www.gstatic.com/firebasejs/4.3.0/firebase.js"></script>
 
   <script>
+
     // Initialize Firebase
     var config = {
       apiKey: "AIzaSyAfcQbzZ11_Fk2GAUXvlsexad2XbFAb9os",
@@ -41,149 +58,254 @@
         profile_picture : imageUrl
       });
     }
+
+
+
     function addCard(imageUrl, content, cardTitle){
-      var card = '<div class="row"><div class="col s12 l12"><div class="card">';
-      var cardImageDiv = '<div class="card-image">'
-       + '<img src="'+ imageUrl +'">'  
-       + '<span class="card-title">' + cardTitle +'</span>'
-       + '</div>';
-      var cardContent = '<div class="card-content">' + content + '</div>';
-      card = card + cardImageDiv + cardContent +  '</div></div></div>';
-      $( ".main_container" ).prepend(card);
+      var elt = '<li><div class="user-thumb"> <img width="40" height="40" alt="User" src="img/demo/av1.jpg"> </div><div class="article-post"> <p>'+content+'</p></div></li>'
+      // var card = '<div class="row"><div class="col s12 l12"><div class="card">';
+      // var cardImageDiv = '<div class="card-image">'
+      //  + '<img src="'+ imageUrl +'">'  
+      //  + '<span class="card-title">' + cardTitle +'</span>'
+      //  + '</div>';
+      // var cardContent = '<div class="card-content">' +  + '</div>';
+      // card = card + cardImageDiv + cardContent +  '</div></div></div>';
+      $( ".recent-posts" ).prepend(elt);
+    }
+
+
+
+    function addPub(imageUrl,link){
+      debugger;
+      var content = '<li class="span2"> <a> <img src="'+imageUrl+'" alt="" > </a><div class="actions"> <a title="" class="" href="' + link + '" target="blank"><i class="icon-download"></i></a> <a class="lightbox_trigger" href="img/gallery/imgbox3.jpg"></a> </div></li>'
+
+      $("#pubs").prepend(content);
+    }
+
+
+    function addEvents(content,day,month){
+
+      var content = '<div class="new-update clearfix"><i class="icon-ok-sign"></i><div class="update-done"><a title="" href="#"><strong>' + content + '</span> </div><div class="update-date"><span class="update-day">'+day+'</span>'+month+'</div></div>'
+      $("#collapseG3").prepend(content);
+    }
+
+    function addVids(vid, elt){
+      var txt = vid.content
+      if(vid.content == undefined)
+       txt = "" 
+      var content = '<li><div style="text-align: center"><iframe width="400" height="280" src="'+vid.youtubeEmbed+'" frameborder="0" allowfullscreen align="center"></iframe></div><p>'+txt+'</p></div></li>'
+      $(elt).prepend(content);
     }
   </script>
 
-  <script type="text/javascript">
-    jQuery(document).ready(function(){
-      $(".button-collapse").sideNav();
-      $('.carousel').carousel({full_width: true, indicators: true});
-      var messages;
-      firebase.database().ref('/messages/').once('value').then(function(snapshot) {
-        debugger;
-       messages = (snapshot.val());
-       for (var message_obj in messages) {
-        debugger
-          addCard(messages[message_obj].imageUrl, messages[message_obj].content, messages[message_obj].cardTitle)
-        }
-      });
 
+
+<script type="text/javascript">
+  jQuery(document).ready(function(){
+    var messages;
+    // firebase.database().ref('/messages/').once('value').then(function(snapshot) {
+    //  messages = (snapshot.val());
+    //  for (var message_obj in messages) {
+    //     addCard(messages[message_obj].imageUrl, messages[message_obj].content, messages[message_obj].cardTitle)
+    //   }
+    // });
+
+    var events;
+    firebase.database().ref('/dashboard-events/').once('value').then(function(snapshot) {
+     events = (snapshot.val());
+     for (var event_obj in events) {
+      event = events[event_obj];
+      addEvents(event.content,event.day,event.month)
+      }
     });
-  </script>
+    var pubs;
+    firebase.database().ref('/dashboard-publications/').once('value').then(function(snapshot) {
+     pubs = (snapshot.val());
+     for (var pub_obj in pubs) {
+      pub = pubs[pub_obj];
+      addPub(pub.imageUrl,pub.link)
+      }
+    });
+    var vids;
+    firebase.database().ref('/dashboard-video/').once('value').then(function(snapshot) {
+     vids = (snapshot.val());
+     for (var video_obj in vids) {
+      vid = vids[video_obj];
+      addVids(vid,"#rec-vid")
+      }
+    });
+
+    var auds;
+    firebase.database().ref('/dashboard-audio/').once('value').then(function(snapshot) {
+     auds = (snapshot.val());
+     for (var audio_obj in auds) {
+      aud = auds[audio_obj];
+      addVids(aud,"#rec-aud");
+      }
+    });
+
+
+  });
+</script>
 </head>
 <body>
-  <header>
-    <nav class="blue lighten-2">
-      <div class="nav-wrapper">
-        <a href="#" class="brand-logo">HLM</a>
-        <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
-        <ul id="nav-mobile" class="right hide-on-med-and-down">
-          <li><a href="index.html">Home</a></li>
-          <li><a href="youtube.html">YouTube</a></li><li><a href="youtube_card.html">YouTube Card View</a></li>
-          <li><a href="verses.html">Verses</a></li>
-        </ul>
-        <ul class="side-nav" id="mobile-demo">
-          <li>
-            <div class="userView">
-              <div class="background">
-                <img src="images/office.png">
-              </div>
-              <a href="#!user"><img class="circle" src="images/photo.png"></a>
-              <a href="#!name"><span class="white-text name">Heavenly Ladder Ministries</span></a>
-              <a href="#!email"><span class="white-text email">md.jegan@gmail.com</span></a>
-            </div>
-          </li>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="youtube.html">YouTube</a></li><li><a href="youtube_card.html">YouTube Card View</a></li>
-          <li><a href="verses.html">Verses</a></li>
-        </ul>
-      </div>
-    </nav>
-    
-  <!-- <div id="test1" class="col s12">Test 1</div>
-  <div id="test2" class="col s12">Test 2</div>
-  <div id="test3" class="col s12">Test 3</div>
-  <div id="test4" class="col s12">Test 4</div> -->
-  </header>
 
-<div id="main_content" class="">
-  <div class="container">
-    <h4 class="center"> Stay updated on the revelation journey! </h4>
-
-  </div>
-  <div class="main_container container">
+<!--Header-part-->
+<div id="header">
+  <h1><a href="index.html">HLM</a></h1>
+</div>
+<!--close-Header-part--> 
 
 
 
+<!--sidebar-menu-->
+<div id="sidebar"><a href="#" class="visible-phone"><i class="icon icon-align-justify"></i> Dashboard</a>
+  <ul>
+    <li class="active"><a href="#"><i class="icon icon-home"></i> <span>Home</span></a> </li>
+    <li><a href="videos.html"><i class="icon icon-facetime-video"></i> <span>Videos</span></a></li>
+    <li><a href="audio.html"><i class="icon icon-play"></i> <span>Audio</span></a></li>
+    <li><a href="songs.html"><i class="icon icon-music"></i> <span>Songs</span></a></li>
+    <li><a href="publications.html"><i class="icon icon-book"></i> <span>Publications</span></a></li>
+    <li><a href="qa.html"><i class="icon icon-comments"></i> <span>Q&amp;A</span></a></li>
+    <li><a href="contactus.html"><i class="icon icon-envelope"></i> <span>Contact Us</span></a></li>
 
-    </div>
-  </div>
-</div>  
 
-    
+  </ul>
+</div>
+<!--sidebar-menu-->
+
+<!--main-container-part-->
+<div id="content">
+<!--breadcrumbs-->
+  <!-- <div id="content-header">
+    <div id="breadcrumb"> <a href="index.html" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a></div>
+  </div> -->
+<!--End-breadcrumbs-->
+
+<!--Action boxes-->
+  <div class="container-fluid">
+<!--     <div class="quick-actions_homepage">
+      <ul class="quick-actions">
+        <li class="bg_lb"> <a href="index.html"> <i class="icon-dashboard"></i> <span class="label label-important">20</span> My Dashboard </a> </li>
+        <li class="bg_lg span3"> <a href="charts.html"> <i class="icon-signal"></i> Charts</a> </li>
+        <li class="bg_ly"> <a href="widgets.html"> <i class="icon-inbox"></i><span class="label label-success">101</span> Widgets </a> </li>
+        <li class="bg_lo"> <a href="tables.html"> <i class="icon-th"></i> Tables</a> </li>
+        <li class="bg_ls"> <a href="grid.html"> <i class="icon-fullscreen"></i> Full width</a> </li>
+        <li class="bg_lo span3"> <a href="form-common.html"> <i class="icon-th-list"></i> Forms</a> </li>
+        <li class="bg_ls"> <a href="buttons.html"> <i class="icon-tint"></i> Buttons</a> </li>
+        <li class="bg_lb"> <a href="interface.html"> <i class="icon-pencil"></i>Elements</a> </li>
+        <li class="bg_lg"> <a href="calendar.html"> <i class="icon-calendar"></i> Calendar</a> </li>
+        <li class="bg_lr"> <a href="error404.html"> <i class="icon-info-sign"></i> Error</a> </li>
+
+      </ul>
+    </div> -->
+<!--End-Action boxes-->    
 
 
-<footer class="page-footer blue lighten-2">
-  <div class="container ">
-    <div class="row">
-      <div class="col l6 s12">
-        <h5 class="white-text">Contact</h5>
-        <div class="details-contact white-text">
-          <div class="contact-details-item">
-            
-                <i class="fa fa-envelope media-object" aria-hidden="true"></i>
-            
-                <a class="white-text" href="mailto:md.jegan@gmail.com">md.jegan@gmail.com</a>
-            
+<!--End-Chart-box--> 
+    <!-- <hr/> -->
+
+
+    <div class="row-fluid">
+      <div class="span12">
+        <div class="widget-box">
+          <div class="widget-title bg_lo"  data-toggle="collapse" href="#collapseG3" > <span class="icon"> <i class="icon-chevron-down"></i> </span>
+            <h5>Events updates</h5>
           </div>
-          <div class="contact-details-item">
-                <i class="fa fa-map-marker media-object" aria-hidden="true"></i>
-              Chennai,<br/> India 
+          <div class="widget-content nopadding updates collapse in" id="collapseG3">
+            
+
           </div>
         </div>
-        <!-- <p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p> -->
-      </div>
-<!--       <div class="col l4 offset-l2 s12">
-        <h5 class="white-text">Research Projects</h5>
-        <ul>
-          <li><a class="grey-text text-lighten-3" href="#!">Link 1</a></li>
-          <li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>
-          <li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>
-          <li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li>
-        </ul>
-      </div>
-      <div class="col l4 offset-l2 s12">
-        <h5 class="white-text">Assistant</h5>
-        <div class="details-asst white-text">
-        <div class="contact-details-item">
-              <i class="fa fa-user media-object" aria-hidden="true"></i>
-              <a class="white-text" href="mailto:ksacco@cs.umass.edu">Karren Sacco</a>
-        </div>
-        <div class="contact-details-item">
-            <i class="fa fa-envelope media-object" aria-hidden="true"></i>
-            <a class="white-text" href="mailto:ksacco@cs.umass.edu">ksacco@cs.umass.edu</a>
-        </div>
-        <div class="contact-details-item">
-              <i class="fa fa-phone media-object" aria-hidden="true"></i>
-            <a class="white-text" href="tel:413 577 0292">(413) 577-0292</a>
-        </div>
-        </div>
-      </div> -->
-    </div>
-  </div>
-  <div class="footer-copyright">
-    <div class="container">
-    © 2017 Content Copyright HLM
-    <!-- <a class="grey-text text-lighten-4 right" href="#!">More Links</a> -->
-    </div>
-  </div>
-</footer>
+        <div class="widget-box">
+          <div class="widget-title bg_ly" data-toggle="collapse" href="#collapseG2"><span class="icon"><i class="icon-chevron-down"></i></span>
+            <h5>Latest Videos</h5>
+          </div>
+          <div class="widget-content nopadding collapse in" id="collapseG2">
+            <ul class="recent-posts" id="rec-vid">
+              
+              
 
-<!-- 
-<footer class="container-fluid text-center">
-  <p>Footer Text</p>
-</footer>
- -->
- <script type="text/javascript" src="js/index.js"></script>
+              <li>
+                <a href="videos.html"><button class="btn btn-warning btn-mini">View All</button></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="widget-box">
+          <div class="widget-title bg_ly" data-toggle="collapse" href="#collapseG2"><span class="icon"><i class="icon-chevron-down"></i></span>
+            <h5>Latest Audio</h5>
+          </div>
+          <div class="widget-content nopadding collapse in" id="collapseG2">
+            <ul class="recent-posts"  id="rec-aud">
+
+              <li>
+                <a href="audio.html"> <button class="btn btn-warning btn-mini">View All</button></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        
+        
+      </div>
+    </div>
+
+
+    <div class="row-fluid">
+      <div class="span12">
+        <div class="widget-box">
+          <div class="widget-title"> <span class="icon"> <i class="icon-picture"></i> </span>
+            <h5>Publications</h5>
+          </div>
+          <div class="widget-content">
+            <ul class="thumbnails" id="pubs">
+              
+            </ul>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--end-main-container-part-->
+
+<!--Footer-part-->
+
+<div class="row-fluid">
+  <div id="footer" class="span12"> 2013 &copy; Matrix Admin. Brought to you by <a href="http://themedesigner.in">Themedesigner.in</a> </div>
+</div>
+
+<!--end-Footer-part-->
+
+
+<script type="text/javascript">
+  // This function is called from the pop-up menus to transfer to
+  // a different page. Ignore if the value returned is a null string:
+  function goPage (newURL) {
+
+      // if url is empty, skip the menu dividers and reset the menu selection to default
+      if (newURL != "") {
+      
+          // if url is "-", it is this page -- reset the menu:
+          if (newURL == "-" ) {
+              resetMenu();            
+          } 
+          // else, send page to designated URL            
+          else {  
+            document.location.href = newURL;
+          }
+      }
+  }
+
+// resets the menu selection upon entry to this page:
+function resetMenu() {
+   document.gomenu.selector.selectedIndex = 2;
+}
+</script>
+
+
 </body>
 </html>
-
