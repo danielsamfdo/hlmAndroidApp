@@ -9,6 +9,9 @@
     "installed_plugins": {
         "cordova-plugin-whitelist": {
             "PACKAGE_NAME": "com.mydomain.hlmA"
+        },
+        "cordova-plugin-splashscreen": {
+            "PACKAGE_NAME": "com.mydomain.hlmA"
         }
     },
     "dependent_plugins": {}

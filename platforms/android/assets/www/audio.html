@@ -1,44 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<title>HLM</title>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link rel="stylesheet" href="css/bootstrap.min.css" />
-<link rel="stylesheet" href="css/bootstrap-responsive.min.css" />
-<link rel="stylesheet" href="css/fullcalendar.css" />
-<link rel="stylesheet" href="css/matrix-style.css" />
-<link rel="stylesheet" href="css/matrix-media.css" />
-<link href="font-awesome/css/font-awesome.css" rel="stylesheet" />
-<link rel="stylesheet" href="css/jquery.gritter.css" />
 
-<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-<script src="js/excanvas.min.js"></script> 
-<script src="js/jquery.min.js"></script> 
-<script src="js/jquery.ui.custom.js"></script> 
-<script src="js/bootstrap.min.js"></script> 
-<script src="js/jquery.flot.min.js"></script> 
-<script src="js/jquery.flot.resize.min.js"></script> 
-<script src="js/jquery.peity.min.js"></script> 
-<script src="js/fullcalendar.min.js"></script> 
-<script src="js/matrix.js"></script> 
-<!-- <script src="js/matrix.dashboard.js"></script>  -->
-<script src="js/jquery.gritter.min.js"></script> 
-<script src="js/matrix.interface.js"></script> 
-<script src="js/matrix.chat.js"></script> 
-<script src="js/jquery.validate.js"></script> 
-<script src="js/matrix.form_validation.js"></script> 
-<script src="js/jquery.wizard.js"></script> 
-<script src="js/jquery.uniform.js"></script> 
-<script src="js/select2.min.js"></script> 
-<script src="js/matrix.popover.js"></script> 
-<script src="js/jquery.dataTables.min.js"></script> 
-<script src="js/matrix.tables.js"></script> 
+    <title>HLM</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Material Design Bootstrap -->
+    <link href="css/mdb.min.css" rel="stylesheet">
+
+    <!-- Template styles -->
+    <style rel="stylesheet">
+        /* TEMPLATE STYLES */
+        
+        main {
+            min-height: 300px;
+            margin-top: 3rem;
+        }
+        
+        .lead {
+            text-align: justify;
+        }
+        
+        @media only screen and (max-width: 768px) {
+            .post-title {
+                margin-top: 1rem;
+            }
+        }
+        
+        @media only screen and (max-width: 768px) {
+            .read-more {
+                text-align: center;
+            }
+        }
+        
+        .extra-margin {
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .navbar {
+            background-color: #555658;
+        }
+
+        .navbar .btn-group .dropdown-menu a:hover {
+            color: #000 !important;
+        }
+
+        .navbar .btn-group .dropdown-menu a:active {
+            color: #fff !important;
+        }
+        
+        footer.page-footer {
+            background-color: #555658;
+            margin-top: 2rem;
+        }
+    </style>
+<script src="js/jquery.js"></script>
 
 <script src="https://www.gstatic.com/firebasejs/4.3.0/firebase.js"></script>
 
-  <script>
+<script>
 
     // Initialize Firebase
     var config = {
@@ -63,207 +94,170 @@
 
     function addCard(imageUrl, content, cardTitle){
       var elt = '<li><div class="user-thumb"> <img width="40" height="40" alt="User" src="img/demo/av1.jpg"> </div><div class="article-post"> <p>'+content+'</p></div></li>'
-      // var card = '<div class="row"><div class="col s12 l12"><div class="card">';
-      // var cardImageDiv = '<div class="card-image">'
-      //  + '<img src="'+ imageUrl +'">'  
-      //  + '<span class="card-title">' + cardTitle +'</span>'
-      //  + '</div>';
-      // var cardContent = '<div class="card-content">' +  + '</div>';
-      // card = card + cardImageDiv + cardContent +  '</div></div></div>';
       $( ".recent-posts" ).prepend(elt);
     }
 
 
 
     function addPub(imageUrl,link){
-      debugger;
-      var content = '<li class="span2"> <a> <img src="'+imageUrl+'" alt="" > </a><div class="actions"> <a title="" class="" href="' + link + '" target="blank"><i class="icon-download"></i></a> <a class="lightbox_trigger" href="img/gallery/imgbox3.jpg"></a> </div></li>'
 
+      var content = '<div class="col-lg-7"><div><a title="" class="" href="' + link + '" target="blank"><img src="'+imageUrl+'" class="img-fluid" alt=""></a><div class="mask"></div></div></div>'
       $("#pubs").prepend(content);
     }
 
 
     function addEvents(content,day,month){
-
-      var content = '<div class="new-update clearfix"><i class="icon-ok-sign"></i><div class="update-done"><a title="" href="#"><strong>' + content + '</span> </div><div class="update-date"><span class="update-day">'+day+'</span>'+month+'</div></div>'
+      var content = '<div><h2 class="post-title">' + content + '</h2> <p class="my-4"><span class="update-day">'+day+'</span>'+month+'</p></div><br/>'
       $("#collapseG3").prepend(content);
     }
 
     function addVids(vid, elt){
+
       var txt = vid.content
       if(vid.content == undefined)
        txt = "" 
-      var content = '<li><div style="text-align: center"><iframe width="400" height="280" src="'+vid.youtubeEmbed+'" frameborder="0" allowfullscreen align="center"></iframe></div><p>'+txt+'</p></div></li>'
+      var content = '<div class="col-lg-5 col-xs-10 view overlay hm-white-light z-depth-1-half"><iframe width="100%" height="280" src="'+vid.youtubeEmbed+'" frameborder="0" allowfullscreen align="center"></iframe></div><div class="col-lg-5"><p class="my-4">'+txt+'</p></div> <hr class="extra-margin my-3">'
       $(elt).prepend(content);
     }
-  </script>
+</script>
 
 
 
 <script type="text/javascript">
   jQuery(document).ready(function(){
-    // var messages;
-    // firebase.database().ref('/messages/').once('value').then(function(snapshot) {
-    //  messages = (snapshot.val());
-    //  for (var message_obj in messages) {
-    //     addCard(messages[message_obj].imageUrl, messages[message_obj].content, messages[message_obj].cardTitle)
-    //   }
-    // });
-
-    // var events;
-    // firebase.database().ref('/dashboard-events/').once('value').then(function(snapshot) {
-    //  events = (snapshot.val());
-    //  for (var event_obj in events) {
-    //   event = events[event_obj];
-    //   addEvents(event.content,event.day,event.month)
-    //   }
-    // });
-    // var pubs;
-    // firebase.database().ref('/dashboard-publications/').once('value').then(function(snapshot) {
-    //  pubs = (snapshot.val());
-    //  for (var pub_obj in pubs) {
-    //   pub = pubs[pub_obj];
-    //   addPub(pub.imageUrl,pub.link)
-    //   }
-    // });
-    var vids;
+    var auds;
     firebase.database().ref('/audio/').once('value').then(function(snapshot) {
-     vids = (snapshot.val());
-     for (var video_obj in vids) {
-      vid = vids[video_obj];
-      addVids(vid,".recent-posts")
+     auds = (snapshot.val());
+     for (var audio_obj in auds) {
+      aud = auds[audio_obj];
+      addVids(aud,"#rec-aud");
       }
     });
-
-    // var auds;
-    // firebase.database().ref('/dashboard-audio/').once('value').then(function(snapshot) {
-    //  auds = (snapshot.val());
-    //  for (var audio_obj in auds) {
-    //   aud = auds[audio_obj];
-    //   addVids(aud,".recent-aud");
-    //   }
-    // });
 
 
   });
 </script>
 </head>
+
 <body>
 
-<!--Header-part-->
-<div id="header">
-  <h1><a href="index.html">HLM</a></h1>
-</div>
-<!--close-Header-part--> 
+    <header>
+        <!--Navbar-->
+       <nav class="navbar navbar-expand-lg navbar-dark navbar-dark">
+            <a class="navbar-brand" href="#">HLM</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="videos.html">Videos</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="audio.html">Audio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="songs.html">Songs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="publications.html">Publications</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="qa.html">Q&amp;A</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contactus.html">Contact Us</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <!--/.Navbar-->
+    </header>
+
+    <main>
+        <!--Main layout-->
+        <div class="container">
 
 
 
-<!--sidebar-menu-->
-<div id="sidebar"><a href="#" class="visible-phone"><i class="icon icon-align-justify"></i> Dashboard</a>
-  <ul>
-    <li ><a href="index.html"><i class="icon icon-home"></i> <span>Home</span></a> </li>
-    <li ><a href="videos.html"><i class="icon icon-facetime-video"></i> <span>Videos</span></a></li>
-    <li class="active"><a href="audio.html"><i class="icon icon-play"></i> <span>Audio</span></a></li>
-    <li><a href="songs.html"><i class="icon icon-music"></i> <span>Songs</span></a></li>
-    <li><a href="publications.html"><i class="icon icon-book"></i> <span>Publications</span></a></li>
-    <li><a href="qa.html"><i class="icon icon-comments"></i> <span>Q&amp;A</span></a></li>
-    <li><a href="contactus.html"><i class="icon icon-envelope"></i> <span>Contact Us</span></a></li>
+            <div class="row wow fadeIn" data-wow-delay="0.2s">
+                <div class="col-md-12">
+                    <h1 class="h1-responsive">Podcasts
+                        <!-- <small class="text-muted">secondary text</small> -->
+                    </h1>
+                </div>
+            </div>
+            <!--Third row-->
+            <div class="row wow fadeIn" data-wow-delay="0.2s" id="rec-aud">
+            </div>
+            <!--/.Second row-->
+            <hr class="extra-margin my-5">
+            
 
-
-  </ul>
-</div>
-<!--sidebar-menu-->
-
-<!--main-container-part-->
-<div id="content">
-<!--breadcrumbs-->
-  <!-- <div id="content-header">
-    <div id="breadcrumb"> <a href="index.html" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a></div>
-  </div> -->
-<!--End-breadcrumbs-->
-
-<!--Action boxes-->
-  <div class="container-fluid">
-<!--     <div class="quick-actions_homepage">
-      <ul class="quick-actions">
-        <li class="bg_lb"> <a href="index.html"> <i class="icon-dashboard"></i> <span class="label label-important">20</span> My Dashboard </a> </li>
-        <li class="bg_lg span3"> <a href="charts.html"> <i class="icon-signal"></i> Charts</a> </li>
-        <li class="bg_ly"> <a href="widgets.html"> <i class="icon-inbox"></i><span class="label label-success">101</span> Widgets </a> </li>
-        <li class="bg_lo"> <a href="tables.html"> <i class="icon-th"></i> Tables</a> </li>
-        <li class="bg_ls"> <a href="grid.html"> <i class="icon-fullscreen"></i> Full width</a> </li>
-        <li class="bg_lo span3"> <a href="form-common.html"> <i class="icon-th-list"></i> Forms</a> </li>
-        <li class="bg_ls"> <a href="buttons.html"> <i class="icon-tint"></i> Buttons</a> </li>
-        <li class="bg_lb"> <a href="interface.html"> <i class="icon-pencil"></i>Elements</a> </li>
-        <li class="bg_lg"> <a href="calendar.html"> <i class="icon-calendar"></i> Calendar</a> </li>
-        <li class="bg_lr"> <a href="error404.html"> <i class="icon-info-sign"></i> Error</a> </li>
-
-      </ul>
-    </div> -->
-<!--End-Action boxes-->    
-
-
-<!--End-Chart-box--> 
-    <!-- <hr/> -->
-
-
-    <div class="row-fluid">
-      <div class="span12">
-        <div class="widget-box">
-          <div class="widget-title bg_ly" data-toggle="collapse" href="#collapseG2"><span class="icon"><i class="icon-chevron-down"></i></span>
-            <h5>Latest Audios</h5>
-          </div>
-          <div class="widget-content nopadding collapse in" id="collapseG2">
-            <ul class="recent-posts">
-              
-              
-
-            </ul>
-          </div>
+            <!--Pagination-->
+            <!-- <nav class="row flex-center wow fadeIn" data-wow-delay="0.2s">
+                <ul class="pagination">
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#!" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                    </li>
+                    <li class="page-item active">
+                        <a class="page-link" href="#!">1 <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#!">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#!">3</a></li>
+                    <li class="page-item"><a class="page-link" href="#!">4</a></li>
+                    <li class="page-item"><a class="page-link" href="#!">5</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#!" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav> -->
+            <!--/.Pagination-->
         </div>
-
-        
-        
-      </div>
-    </div>
-  </div>
-</div>
-
-<!--end-main-container-part-->
-
-<!--Footer-part-->
-
-<div class="row-fluid">
-  <div id="footer" class="span12"> 2013 &copy; Matrix Admin. Brought to you by <a href="http://themedesigner.in">Themedesigner.in</a> </div>
-</div>
-
-<!--end-Footer-part-->
+        <!--/.Main layout-->
+    </main>
 
 
-<script type="text/javascript">
-  // This function is called from the pop-up menus to transfer to
-  // a different page. Ignore if the value returned is a null string:
-  function goPage (newURL) {
+    <!--Footer-->
+    <footer class="page-footer center-on-small-only">
+        <!--Copyright-->
+        <div class="footer-copyright">
+            <div class="containter-fluid">
+                <a href="#"> HLM </a>
+            </div>
+        </div>
+        <!--/.Copyright-->
+    </footer>
+    <!--/.Footer-->
 
-      // if url is empty, skip the menu dividers and reset the menu selection to default
-      if (newURL != "") {
-      
-          // if url is "-", it is this page -- reset the menu:
-          if (newURL == "-" ) {
-              resetMenu();            
-          } 
-          // else, send page to designated URL            
-          else {  
-            document.location.href = newURL;
-          }
-      }
-  }
+    <!-- SCRIPTS -->
 
-// resets the menu selection upon entry to this page:
-function resetMenu() {
-   document.gomenu.selector.selectedIndex = 2;
-}
-</script>
+    <!-- JQuery -->
+    <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
 
+    <!-- Bootstrap dropdown -->
+    <script type="text/javascript" src="js/popper.min.js"></script>
 
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="js/mdb.min.js"></script>
+
+    <script>
+    new WOW().init();
+    </script>
+    
 </body>
+
 </html>
