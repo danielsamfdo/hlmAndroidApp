@@ -10,6 +10,7 @@
     <icon density="mdpi" height="57" platform="android" src="www/images/photo.png" width="57" />
     <content src="splash.html" />
     <access origin="*" />
+    <preference name="SplashScreenDelay" value="0" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
     <allow-intent href="tel:*" />

@@ -64,6 +64,52 @@
             background-color: #555658;
             margin-top: 2rem;
         }
+        /* Center the loader */
+    .loader {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      z-index: 1;
+      width: 150px;
+      height: 150px;
+      margin: -75px 0 0 -75px;
+      border: 16px solid #f3f3f3;
+      border-radius: 50%;
+      border-top: 16px solid #3498db;
+      width: 120px;
+      height: 120px;
+      -webkit-animation: spin 2s linear infinite;
+      animation: spin 2s linear infinite;
+    }
+
+    @-webkit-keyframes spin {
+      0% { -webkit-transform: rotate(0deg); }
+      100% { -webkit-transform: rotate(360deg); }
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Add animation to "page content" */
+    .animate-bottom {
+      position: relative;
+      -webkit-animation-name: animatebottom;
+      -webkit-animation-duration: 1s;
+      animation-name: animatebottom;
+      animation-duration: 1s
+    }
+
+    @-webkit-keyframes animatebottom {
+      from { bottom:-100px; opacity:0 } 
+      to { bottom:0px; opacity:1 }
+    }
+
+    @keyframes animatebottom { 
+      from{ bottom:-100px; opacity:0 } 
+      to{ bottom:0; opacity:1 }
+    }
     </style>
 <script src="js/jquery.js"></script>
 
@@ -142,6 +188,8 @@
       qa = qas[qa_obj];
       addQA(qa, "#qas",qa_obj)
       }
+     jQuery("#loader").remove();
+      
     });
 
 
@@ -167,7 +215,7 @@
                         <a class="nav-link" href="videos.html">Videos</a>
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link" href="audio.html">Audio</a>
+                        <a class="nav-link" href="audio.html">Audio Messages</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="songs.html">Songs</a>
@@ -191,8 +239,7 @@
     <main>
         <!--Main layout-->
         <div class="container">
-
-
+            <div id="loader" class="loader"></div>
 
             <div class="row wow fadeIn" data-wow-delay="0.2s">
                 <div class="col-md-12">
